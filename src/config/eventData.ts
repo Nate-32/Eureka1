@@ -80,7 +80,9 @@ export const eventData = {
   externalQueryFormUrl: null as string | null,
   assets: {
     heroBackground: 'assets/aistudio/BG_2d93766c.png',
+    heroBackgroundWebp: 'assets/aistudio/BG_2d93766c.webp',
     heroTypography: 'assets/aistudio/Typo_e768a689.png',
+    heroTypographyWebp: 'assets/aistudio/Typo_e768a689.webp',
     frostEdge: 'assets/aistudio/Snow_82a6541e.png',
   },
   navLinks: [

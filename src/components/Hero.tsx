@@ -12,19 +12,53 @@ export function Hero({onOpenProposal}: HeroProps) {
 
   const bgRef = useRef<HTMLImageElement>(null);
   const typoRef = useRef<HTMLImageElement>(null);
-  const [bgLoaded, setBgLoaded] = useState(false);
-  const [typoLoaded, setTypoLoaded] = useState(false);
+  const [bgReady, setBgReady] = useState(false);
+  const [typoReady, setTypoReady] = useState(false);
+  const [revealStarted, setRevealStarted] = useState(false);
   const [entranceDone, setEntranceDone] = useState(false);
 
-  useEffect(() => {
-    if (bgRef.current?.complete) setBgLoaded(true);
-    if (typoRef.current?.complete) setTypoLoaded(true);
+  const markImageReady = (
+    img: HTMLImageElement | null,
+    setter: (ready: boolean) => void,
+  ) => {
+    if (!img) return;
+    if (typeof img.decode === 'function') {
+      img
+        .decode()
+        .then(() => setter(true))
+        .catch(() => setter(true));
+    } else {
+      setter(true);
+    }
+  };
 
-    const timer = window.setTimeout(() => {
-      setEntranceDone(true);
-    }, 2000);
-    return () => window.clearTimeout(timer);
+  useEffect(() => {
+    if (bgRef.current?.complete) {
+      markImageReady(bgRef.current, setBgReady);
+    }
+    if (typoRef.current?.complete) {
+      markImageReady(typoRef.current, setTypoReady);
+    }
+
+    // Safety fallback so slow networks never stall the hero reveal
+    const fallbackTimer = window.setTimeout(() => {
+      setBgReady(true);
+      setTypoReady(true);
+    }, 2200);
+
+    return () => window.clearTimeout(fallbackTimer);
   }, []);
+
+  useEffect(() => {
+    if (!bgReady || !typoReady || revealStarted) return;
+    setRevealStarted(true);
+
+    const endTimer = window.setTimeout(() => {
+      setEntranceDone(true);
+    }, 2500);
+
+    return () => window.clearTimeout(endTimer);
+  }, [bgReady, typoReady, revealStarted]);
 
   const scrollTo = (selector: string) => {
     const el = document.querySelector(selector);
@@ -47,12 +81,13 @@ export function Hero({onOpenProposal}: HeroProps) {
           width={1920}
           height={1080}
           loading="eager"
-          decoding="async"
+          decoding="sync"
           fetchPriority="high"
           referrerPolicy="no-referrer"
-          onLoad={() => setBgLoaded(true)}
-          className={`h-full w-full object-cover object-[74%_42%] sm:object-[68%_center] lg:object-center animate-hero-env transition-opacity duration-500 ${
-            bgLoaded ? 'opacity-100' : 'opacity-0'
+          onLoad={(e) => markImageReady(e.currentTarget, setBgReady)}
+          onError={() => setBgReady(true)}
+          className={`h-full w-full object-cover object-[74%_42%] sm:object-[68%_center] lg:object-center transition-opacity duration-500 ${
+            revealStarted ? 'animate-hero-env opacity-100' : 'opacity-0'
           }`}
         />
 
@@ -69,20 +104,30 @@ export function Hero({onOpenProposal}: HeroProps) {
         />
       </div>
 
-      {/* Phase 1 Cinematic Arrival Veil — Plays once on initial page load */}
+      {/* Phase 1 Cinematic Arrival Veil — Holds gently until hero assets are decoded, then plays once */}
       {!entranceDone && (
         <div
           aria-hidden="true"
-          className="animate-aurora-veil pointer-events-none fixed inset-0 z-40 overflow-hidden bg-[radial-gradient(ellipse_at_center,#FFFFFF_0%,#DCEBFA_65%,#F8FAFD_100%)]"
+          className={`pointer-events-none fixed inset-0 z-40 overflow-hidden bg-[radial-gradient(ellipse_at_center,#FFFFFF_0%,#DCEBFA_65%,#F8FAFD_100%)] ${
+            revealStarted ? 'animate-aurora-veil' : 'opacity-100'
+          }`}
         >
-          <div className="animate-aurora-streak absolute -inset-x-1/4 top-1/4 h-72 rounded-full bg-gradient-to-r from-transparent via-[#62C9C1]/35 to-[#A895E8]/30 blur-3xl" />
+          <div
+            className={`absolute -inset-x-1/4 top-1/4 h-72 rounded-full bg-gradient-to-r from-transparent via-[#62C9C1]/35 to-[#A895E8]/30 blur-3xl ${
+              revealStarted ? 'animate-aurora-streak' : 'opacity-40'
+            }`}
+          />
         </div>
       )}
 
       {/* Centered Hero Composition */}
       <div className="relative z-10 mx-auto flex w-full max-w-[1280px] flex-col items-center px-5 text-center sm:px-8 lg:px-10">
         {/* 1. Small Event Label */}
-        <div className="animate-hero-kicker mb-5 flex items-center justify-center gap-3 text-xs font-semibold tracking-[0.16em] uppercase text-[#137C75]">
+        <div
+          className={`mb-5 flex items-center justify-center gap-3 text-xs font-semibold tracking-[0.16em] uppercase text-[#137C75] ${
+            revealStarted ? 'animate-hero-kicker' : 'opacity-0'
+          }`}
+        >
           <span
             className="hidden sm:inline-block h-[1px] w-7 bg-gradient-to-r from-transparent to-[#62C9C1]"
             aria-hidden="true"
@@ -94,8 +139,12 @@ export function Hero({onOpenProposal}: HeroProps) {
           />
         </div>
 
-        {/* 2. Official EUREKA Typography Graphic (Centered, Proportions & Transparency Preserved) */}
-        <div className="animate-hero-typo mb-6 w-full max-w-[300px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[540px]">
+        {/* 2. Official EUREKA Typography Graphic (Decoded cleanly before reveal) */}
+        <div
+          className={`mb-6 w-full max-w-[300px] sm:max-w-[440px] md:max-w-[500px] lg:max-w-[540px] ${
+            revealStarted ? 'animate-hero-typo' : 'opacity-0'
+          }`}
+        >
           <img
             ref={typoRef}
             src={typoSrc}
@@ -103,23 +152,30 @@ export function Hero({onOpenProposal}: HeroProps) {
             width={1600}
             height={520}
             loading="eager"
-            decoding="async"
+            decoding="sync"
             fetchPriority="high"
             referrerPolicy="no-referrer"
-            onLoad={() => setTypoLoaded(true)}
-            className={`mx-auto block h-auto w-full object-contain drop-shadow-[0_8px_24px_rgba(18,26,44,0.08)] transition-opacity duration-300 ${
-              typoLoaded ? 'opacity-100' : 'opacity-0'
-            }`}
+            onLoad={(e) => markImageReady(e.currentTarget, setTypoReady)}
+            onError={() => setTypoReady(true)}
+            className="mx-auto block h-auto w-full object-contain drop-shadow-[0_8px_24px_rgba(18,26,44,0.08)]"
           />
         </div>
 
         {/* 3. Supporting Event Introduction */}
-        <p className="animate-hero-subtitle mb-8 max-w-xl text-base sm:text-lg leading-relaxed text-[#334155]">
+        <p
+          className={`mb-8 max-w-xl text-base sm:text-lg leading-relaxed text-[#334155] ${
+            revealStarted ? 'animate-hero-subtitle' : 'opacity-0'
+          }`}
+        >
           {eventData.heroSubtitle}
         </p>
 
         {/* 4 & 5. Primary & Secondary CTAs */}
-        <div className="animate-hero-actions flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
+        <div
+          className={`flex flex-wrap items-center justify-center gap-3.5 sm:gap-4 ${
+            revealStarted ? 'animate-hero-actions' : 'opacity-0'
+          }`}
+        >
           <button
             type="button"
             onClick={() => scrollTo('#about')}
@@ -164,7 +220,9 @@ export function Hero({onOpenProposal}: HeroProps) {
         type="button"
         onClick={() => scrollTo('#about')}
         aria-label="Scroll to About section"
-        className="animate-hero-scroll absolute bottom-7 left-1/2 z-10 -translate-x-1/2 cursor-pointer flex flex-col items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-[#64748B] transition-colors hover:text-[#121A2C] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#137C75]"
+        className={`absolute bottom-7 left-1/2 z-10 -translate-x-1/2 cursor-pointer flex flex-col items-center gap-1.5 text-xs font-medium tracking-wider uppercase text-[#64748B] transition-colors hover:text-[#121A2C] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#137C75] ${
+          revealStarted ? 'animate-hero-scroll' : 'opacity-0'
+        }`}
       >
         <span>Scroll</span>
         <ChevronDown className="h-4 w-4 text-[#137C75]" aria-hidden="true" />

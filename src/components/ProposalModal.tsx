@@ -1,4 +1,4 @@
-import {CheckCircle2, Sparkles, X} from 'lucide-react';
+import {CheckCircle2, X} from 'lucide-react';
 import {type FormEvent, useEffect, useState} from 'react';
 import {eventData} from '../config/eventData';
 
@@ -69,25 +69,25 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
       role="dialog"
       aria-modal="true"
       aria-labelledby="proposal-modal-title"
-      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#121A2C]/65 p-4 backdrop-blur-sm"
+      className="fixed inset-0 z-[100] flex items-center justify-center bg-[#121A2C]/55 p-4 backdrop-blur-sm"
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className="relative w-full max-w-xl rounded-2xl border border-[#E5EAF1] bg-white p-6 sm:p-8 shadow-[0_24px_80px_rgba(18,26,44,0.22)]">
+      <div className="relative w-full max-w-xl rounded-xl border border-[#E4E4E7] bg-white p-6 sm:p-8 shadow-[0_24px_64px_rgba(18,26,44,0.18)]">
         <button
           type="button"
           onClick={handleClose}
           aria-label="Close proposal dialog"
-          className="absolute right-5 top-5 flex h-9 w-9 cursor-pointer items-center justify-center rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] text-[#64748B] transition-colors hover:border-[#62C9C1] hover:text-[#121A2C]"
+          className="absolute right-5 top-5 flex h-9 w-9 cursor-pointer items-center justify-center rounded-md border border-[#E4E4E7] bg-white text-[#52525B] transition-colors hover:border-[#121A2C] hover:text-[#121A2C]"
         >
           <X className="h-4 w-4" aria-hidden="true" />
         </button>
 
         {validated ? (
           <div className="py-4">
-            <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl border border-[#62C9C1]/35 bg-[#62C9C1]/15 text-[#137C75]">
-              <CheckCircle2 className="h-6 w-6" aria-hidden="true" />
+            <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-lg border border-[#0D9488]/25 bg-[#0D9488]/10 text-[#0D9488]">
+              <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
             </div>
             <h3
               id="proposal-modal-title"
@@ -95,17 +95,17 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
             >
               Proposal Draft Validated
             </h3>
-            <p className="mb-6 text-sm leading-relaxed text-[#64748B]">
+            <p className="mb-6 text-sm leading-relaxed text-[#52525B]">
               Your proposal draft for{' '}
               <span className="font-semibold text-[#121A2C]">
                 {projectTitle}
               </span>{' '}
               ({teamName}) is ready. Once official registration opens, configure{' '}
-              <code className="font-mono-tabular text-xs text-[#137C75]">
+              <code className="font-mono-tabular text-xs text-[#0D9488]">
                 externalProposalFormUrl
               </code>{' '}
               in{' '}
-              <code className="font-mono-tabular text-xs text-[#137C75]">
+              <code className="font-mono-tabular text-xs text-[#0D9488]">
                 src/config/eventData.ts
               </code>{' '}
               to connect the live submission portal.
@@ -114,14 +114,14 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="cursor-pointer rounded-lg bg-[#121A2C] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1B2742]"
+                className="cursor-pointer rounded-md bg-[#121A2C] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1E293B]"
               >
                 Done
               </button>
               <button
                 type="button"
                 onClick={() => setValidated(false)}
-                className="cursor-pointer rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-6 py-2.5 text-sm font-semibold text-[#121A2C] transition-colors hover:border-[#62C9C1]"
+                className="cursor-pointer rounded-md border border-[#E4E4E7] bg-white px-5 py-2.5 text-sm font-semibold text-[#121A2C] transition-colors hover:border-[#121A2C]"
               >
                 Edit Draft
               </button>
@@ -129,18 +129,17 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
           </div>
         ) : (
           <form onSubmit={handleSubmit} noValidate>
-            <div className="mb-5 pr-8">
-              <div className="mb-2 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.14em] uppercase text-[#137C75]">
-                <Sparkles className="h-3.5 w-3.5" aria-hidden="true" />
-                <span>EUREKA Proposal Desk</span>
-              </div>
+            <div className="mb-6 pr-8">
+              <p className="mb-1.5 text-xs font-semibold tracking-[0.14em] uppercase text-[#0D9488]">
+                EUREKA Proposal Desk
+              </p>
               <h3
                 id="proposal-modal-title"
-                className="font-display mb-1.5 text-2xl font-bold text-[#121A2C]"
+                className="font-display mb-1.5 text-2xl font-bold tracking-[-0.015em] text-[#121A2C]"
               >
                 Prepare Your Proposal
               </h3>
-              <p className="text-xs sm:text-sm text-[#64748B]">
+              <p className="text-xs sm:text-sm text-[#52525B]">
                 Official submission links are configured centrally before event
                 launch. Draft and validate your concept summary below.
               </p>
@@ -151,7 +150,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                 <div>
                   <label
                     htmlFor="proposal-team"
-                    className="mb-1 block text-xs font-medium text-[#334155]"
+                    className="mb-1 block text-xs font-medium text-[#3F3F46]"
                   >
                     Team / Lead Name
                   </label>
@@ -161,13 +160,13 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                     value={teamName}
                     onChange={(e) => setTeamName(e.target.value)}
                     placeholder="Aurora Labs"
-                    className="w-full rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#94A3B8] focus:border-[#62C9C1] focus:bg-white focus:outline-none"
+                    className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] focus:border-[#121A2C] focus:outline-none"
                   />
                 </div>
                 <div>
                   <label
                     htmlFor="proposal-email"
-                    className="mb-1 block text-xs font-medium text-[#334155]"
+                    className="mb-1 block text-xs font-medium text-[#3F3F46]"
                   >
                     Contact Email
                   </label>
@@ -177,7 +176,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
                     placeholder="team@domain.example"
-                    className="w-full rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#94A3B8] focus:border-[#62C9C1] focus:bg-white focus:outline-none"
+                    className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] focus:border-[#121A2C] focus:outline-none"
                   />
                 </div>
               </div>
@@ -186,7 +185,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                 <div>
                   <label
                     htmlFor="proposal-track"
-                    className="mb-1 block text-xs font-medium text-[#334155]"
+                    className="mb-1 block text-xs font-medium text-[#3F3F46]"
                   >
                     Discovery Track
                   </label>
@@ -194,7 +193,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                     id="proposal-track"
                     value={track}
                     onChange={(e) => setTrack(e.target.value)}
-                    className="w-full rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-3.5 py-2.5 text-sm text-[#121A2C] focus:border-[#62C9C1] focus:bg-white focus:outline-none"
+                    className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] focus:border-[#121A2C] focus:outline-none"
                   >
                     {eventData.tracks.items.map((item) => (
                       <option key={item.id} value={item.id}>
@@ -206,7 +205,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                 <div>
                   <label
                     htmlFor="proposal-title"
-                    className="mb-1 block text-xs font-medium text-[#334155]"
+                    className="mb-1 block text-xs font-medium text-[#3F3F46]"
                   >
                     Working Project Title
                   </label>
@@ -216,7 +215,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                     value={projectTitle}
                     onChange={(e) => setProjectTitle(e.target.value)}
                     placeholder="Cryogenic Edge Photonic Sensor"
-                    className="w-full rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#94A3B8] focus:border-[#62C9C1] focus:bg-white focus:outline-none"
+                    className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] focus:border-[#121A2C] focus:outline-none"
                   />
                 </div>
               </div>
@@ -224,7 +223,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
               <div>
                 <label
                   htmlFor="proposal-summary"
-                  className="mb-1 block text-xs font-medium text-[#334155]"
+                  className="mb-1 block text-xs font-medium text-[#3F3F46]"
                 >
                   Breakthrough Summary
                 </label>
@@ -234,7 +233,7 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
                   value={summary}
                   onChange={(e) => setSummary(e.target.value)}
                   placeholder="Describe the problem you are investigating, your working prototype approach, and expected impact..."
-                  className="w-full resize-none rounded-lg border border-[#E5EAF1] bg-[#F8FAFD] px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#94A3B8] focus:border-[#62C9C1] focus:bg-white focus:outline-none"
+                  className="w-full resize-none rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] focus:border-[#121A2C] focus:outline-none"
                 />
               </div>
             </div>
@@ -249,13 +248,13 @@ export function ProposalModal({isOpen, onClose}: ProposalModalProps) {
               <button
                 type="button"
                 onClick={handleClose}
-                className="cursor-pointer rounded-lg border border-[#E5EAF1] px-5 py-2.5 text-sm font-medium text-[#64748B] transition-colors hover:text-[#121A2C]"
+                className="cursor-pointer rounded-md border border-[#E4E4E7] px-5 py-2.5 text-sm font-medium text-[#52525B] transition-colors hover:text-[#121A2C]"
               >
                 Cancel
               </button>
               <button
                 type="submit"
-                className="cursor-pointer rounded-lg bg-[#121A2C] px-6 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1B2742]"
+                className="cursor-pointer rounded-md bg-[#121A2C] px-5 py-2.5 text-sm font-semibold text-white transition-colors hover:bg-[#1E293B]"
               >
                 Validate Proposal Draft
               </button>

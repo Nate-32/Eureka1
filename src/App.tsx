@@ -24,7 +24,7 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <div className="relative min-h-screen overflow-x-clip bg-[#F8FAFD] text-[#121A2C]">
+      <div className="relative min-h-screen overflow-x-clip bg-white text-[#121A2C]">
         <Navbar onOpenProposal={openProposal} />
 
         <main>

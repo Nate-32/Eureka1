@@ -1,0 +1,182 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-cloud-white: #F8FAFD;
+  --color-pure-white: #FFFFFF;
+  --color-midnight: #121A2C;
+  --color-mist-blue: #DCEBFA;
+  --color-aurora-teal: #62C9C1;
+  --color-aurora-teal-deep: #137C75;
+  --color-soft-violet: #A895E8;
+  --color-pale-pink: #E9B8D7;
+  --color-slate-muted: #64748B;
+  --color-border-gray: #E5EAF1;
+}
+
+@layer base {
+  html {
+    font-family: var(--font-sans);
+    background-color: #F8FAFD;
+    color: #121A2C;
+    scroll-behavior: smooth;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: var(--font-display);
+  }
+
+  .font-mono-tabular {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+/* Aurora Minimal Light Surface Panes */
+.aurora-pane {
+  background-color: #FFFFFF;
+  border: 1px solid #E5EAF1;
+  box-shadow: 0 4px 20px rgba(18, 26, 44, 0.035), 0 1px 3px rgba(18, 26, 44, 0.02);
+}
+
+.aurora-pane-interactive {
+  transition: transform 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    box-shadow 220ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 220ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.aurora-pane-interactive:hover {
+  transform: translateY(-2px);
+  border-color: rgba(98, 201, 193, 0.55);
+  box-shadow: 0 12px 32px rgba(18, 26, 44, 0.06), 0 2px 8px rgba(98, 201, 193, 0.08);
+}
+
+/* Hero Cinematic Entrance — "Travelling Through Time" */
+@keyframes auroraArrivalVeil {
+  0% {
+    opacity: 1;
+  }
+  55% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+
+@keyframes auroraStreakSweep {
+  0% {
+    opacity: 0;
+    transform: translate3d(-22%, -6%, 0) scaleX(0.85) rotate(-8deg);
+  }
+  30% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(28%, 8%, 0) scaleX(1.25) rotate(-8deg);
+  }
+}
+
+@keyframes heroEnvironmentFocus {
+  0% {
+    opacity: 0.7;
+    transform: scale(1.07);
+    filter: blur(7px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes heroTypographyReveal {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 14px, 0) scale(0.96);
+    filter: blur(4px);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+@keyframes heroContentFadeUp {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 12px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+.animate-aurora-veil {
+  animation: auroraArrivalVeil 1.75s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-aurora-streak {
+  animation: auroraStreakSweep 1.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-env {
+  animation: heroEnvironmentFocus 1.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-hero-typo {
+  opacity: 0;
+  animation: heroTypographyReveal 1s cubic-bezier(0.16, 1, 0.3, 1) 0.55s forwards;
+}
+
+.animate-hero-kicker {
+  opacity: 0;
+  animation: heroContentFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.42s forwards;
+}
+
+.animate-hero-subtitle {
+  opacity: 0;
+  animation: heroContentFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 0.88s forwards;
+}
+
+.animate-hero-actions {
+  opacity: 0;
+  animation: heroContentFadeUp 0.85s cubic-bezier(0.16, 1, 0.3, 1) 1.08s forwards;
+}
+
+.animate-hero-scroll {
+  opacity: 0;
+  animation: heroContentFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 1.3s forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .animate-aurora-veil,
+  .animate-aurora-streak,
+  .animate-hero-env,
+  .animate-hero-typo,
+  .animate-hero-kicker,
+  .animate-hero-subtitle,
+  .animate-hero-actions,
+  .animate-hero-scroll {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+
+  .animate-aurora-veil,
+  .animate-aurora-streak {
+    display: none !important;
+  }
+}

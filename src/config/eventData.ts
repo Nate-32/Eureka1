@@ -79,11 +79,12 @@ export const eventData = {
   externalProposalFormUrl: null as string | null,
   externalQueryFormUrl: null as string | null,
   assets: {
-    heroBackground: 'assets/aistudio/BG_2d93766c.png',
-    heroBackgroundWebp: 'assets/aistudio/BG_2d93766c.webp',
+    heroBackground: 'assets/aistudio/BG_white_956d58f4.png',
+    heroBackgroundWebp: 'assets/aistudio/BG_white_956d58f4.webp',
+    heroBackgroundDark: 'assets/aistudio/BG_Black_607bfd26.png',
+    heroBackgroundDarkWebp: 'assets/aistudio/BG_Black_607bfd26.webp',
     heroTypography: 'assets/aistudio/Typo_e768a689.png',
     heroTypographyWebp: 'assets/aistudio/Typo_e768a689.webp',
-    frostEdge: 'assets/aistudio/Snow_82a6541e.png',
   },
   navLinks: [
     {id: 'about', label: 'About', href: '#about'},

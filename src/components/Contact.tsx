@@ -50,43 +50,43 @@ export function Contact() {
   return (
     <section
       id="contact"
-      className="relative border-t border-[#E4E4E7] bg-[#FAFAFA] py-20 text-[#121A2C] sm:py-28"
+      className="relative border-t border-[#E4E4E7] dark:border-white/10 bg-[#FAFAFA] dark:bg-[#0D111D] py-20 text-[#121A2C] dark:text-white transition-colors duration-300 sm:py-28"
     >
       <div className="mx-auto max-w-[1200px] px-5 sm:px-8">
         <div className="grid grid-cols-1 items-start gap-12 lg:grid-cols-12 lg:gap-16">
           {/* Editorial Heading & Contact Directory */}
           <div className="lg:col-span-5">
-            <p className="mb-3 text-xs font-semibold tracking-[0.14em] uppercase text-[#0D9488]">
+            <p className="mb-3 text-xs font-semibold tracking-[0.14em] uppercase text-[#0D9488] dark:text-[#62C9C1]">
               {contact.eyebrow}
             </p>
-            <h2 className="font-display mb-4 text-3xl sm:text-4xl font-bold leading-[1.15] tracking-[-0.02em] text-[#121A2C] text-balance">
+            <h2 className="font-display mb-4 text-3xl sm:text-4xl font-bold leading-[1.15] tracking-[-0.02em] text-[#121A2C] dark:text-white text-balance">
               {contact.heading}
             </h2>
-            <p className="mb-8 text-base leading-relaxed text-[#52525B]">
+            <p className="mb-8 text-base leading-relaxed text-[#52525B] dark:text-[#A1A1AA]">
               {contact.subtitle}
             </p>
 
-            <div className="border-t border-[#E4E4E7]">
+            <div className="border-t border-[#E4E4E7] dark:border-white/10">
               {contact.channels.map((channel) => (
                 <div
                   key={channel.id}
-                  className="border-b border-[#E4E4E7] py-4"
+                  className="border-b border-[#E4E4E7] dark:border-white/10 py-4"
                 >
-                  <p className="text-xs font-medium text-[#0D9488]">
+                  <p className="text-xs font-medium text-[#0D9488] dark:text-[#62C9C1]">
                     {channel.role}
                   </p>
-                  <p className="mt-0.5 text-sm font-semibold text-[#121A2C]">
+                  <p className="mt-0.5 text-sm font-semibold text-[#121A2C] dark:text-white">
                     {channel.label}
                   </p>
                   {channel.href ? (
                     <a
                       href={channel.href}
-                      className="mt-1 block truncate text-sm text-[#52525B] transition-colors hover:text-[#121A2C]"
+                      className="mt-1 block truncate text-sm text-[#52525B] dark:text-[#A1A1AA] transition-colors hover:text-[#121A2C] dark:hover:text-white"
                     >
                       {channel.value}
                     </a>
                   ) : (
-                    <p className="mt-1 truncate font-mono-tabular text-xs sm:text-sm text-[#71717A]">
+                    <p className="mt-1 truncate font-mono-tabular text-xs sm:text-sm text-[#71717A] dark:text-[#A1A1AA]">
                       {channel.value}
                     </p>
                   )}
@@ -94,32 +94,34 @@ export function Contact() {
               ))}
             </div>
 
-            <p className="mt-5 text-xs leading-relaxed text-[#71717A]">
+            <p className="mt-5 text-xs leading-relaxed text-[#71717A] dark:text-[#71717A]">
               {contact.placeholderNote}
             </p>
           </div>
 
-          {/* Minimalist White Inquiry Form */}
+          {/* Minimalist Inquiry Form */}
           <div className="lg:col-span-7">
-            <div className="rounded-xl border border-[#E4E4E7] bg-white p-7 sm:p-9">
+            <div className="rounded-xl border border-[#E4E4E7] dark:border-white/10 bg-white dark:bg-[#111726] p-7 sm:p-9">
               {submitted ? (
                 <div className="py-6">
-                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-[#0D9488]/25 bg-[#0D9488]/10 text-[#0D9488]">
+                  <div className="mb-5 flex h-11 w-11 items-center justify-center rounded-lg border border-[#0D9488]/25 dark:border-[#62C9C1]/35 bg-[#0D9488]/10 dark:bg-[#62C9C1]/15 text-[#0D9488] dark:text-[#62C9C1]">
                     <CheckCircle2 className="h-5 w-5" aria-hidden="true" />
                   </div>
-                  <h3 className="font-display mb-2 text-2xl font-bold text-[#121A2C]">
+                  <h3 className="font-display mb-2 text-2xl font-bold text-[#121A2C] dark:text-white">
                     Query Recorded Locally
                   </h3>
-                  <p className="mb-6 max-w-lg text-sm sm:text-base leading-relaxed text-[#52525B]">
+                  <p className="mb-6 max-w-lg text-sm sm:text-base leading-relaxed text-[#52525B] dark:text-[#A1A1AA]">
                     Thank you,{' '}
-                    <span className="font-semibold text-[#121A2C]">
+                    <span className="font-semibold text-[#121A2C] dark:text-white">
                       {name}
                     </span>
                     . Your{' '}
-                    <span className="font-medium text-[#121A2C]">{topic}</span>{' '}
+                    <span className="font-medium text-[#121A2C] dark:text-white">
+                      {topic}
+                    </span>{' '}
                     inquiry has been validated. Connect an active form endpoint
                     or helpdesk URL in{' '}
-                    <code className="font-mono-tabular text-xs text-[#0D9488]">
+                    <code className="font-mono-tabular text-xs text-[#0D9488] dark:text-[#62C9C1]">
                       src/config/eventData.ts
                     </code>{' '}
                     when publishing live registration.
@@ -127,7 +129,7 @@ export function Contact() {
                   <button
                     type="button"
                     onClick={resetForm}
-                    className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-[#E4E4E7] bg-white px-5 py-2.5 text-sm font-semibold text-[#121A2C] transition-colors hover:border-[#121A2C]"
+                    className="inline-flex cursor-pointer items-center gap-2 rounded-md border border-[#E4E4E7] dark:border-white/15 bg-white dark:bg-white/5 px-5 py-2.5 text-sm font-semibold text-[#121A2C] dark:text-white transition-colors hover:border-[#121A2C] dark:hover:border-[#62C9C1]"
                   >
                     Send Another Query
                   </button>
@@ -139,10 +141,10 @@ export function Contact() {
                   className="flex flex-col gap-5"
                 >
                   <div>
-                    <h3 className="font-display mb-1.5 text-xl sm:text-2xl font-bold tracking-[-0.015em] text-[#121A2C]">
+                    <h3 className="font-display mb-1.5 text-xl sm:text-2xl font-bold tracking-[-0.015em] text-[#121A2C] dark:text-white">
                       Have a Specific Question?
                     </h3>
-                    <p className="text-sm text-[#52525B]">
+                    <p className="text-sm text-[#52525B] dark:text-[#A1A1AA]">
                       Reach out regarding tracks, proposal guidelines, technical
                       infrastructure, or ecosystem partnerships.
                     </p>
@@ -152,7 +154,7 @@ export function Contact() {
                     <div>
                       <label
                         htmlFor="contact-name"
-                        className="mb-1.5 block text-xs font-medium text-[#3F3F46]"
+                        className="mb-1.5 block text-xs font-medium text-[#3F3F46] dark:text-[#D4D4D8]"
                       >
                         Your Name
                       </label>
@@ -163,14 +165,14 @@ export function Contact() {
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Ada Lovelace"
                         required
-                        className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] transition-colors focus:border-[#121A2C] focus:outline-none"
+                        className="w-full rounded-md border border-[#E4E4E7] dark:border-white/15 bg-white dark:bg-[#090B12] px-3.5 py-2.5 text-sm text-[#121A2C] dark:text-white placeholder-[#A1A1AA] dark:placeholder-[#52525B] transition-colors focus:border-[#121A2C] dark:focus:border-[#62C9C1] focus:outline-none"
                       />
                     </div>
 
                     <div>
                       <label
                         htmlFor="contact-email"
-                        className="mb-1.5 block text-xs font-medium text-[#3F3F46]"
+                        className="mb-1.5 block text-xs font-medium text-[#3F3F46] dark:text-[#D4D4D8]"
                       >
                         Email Address
                       </label>
@@ -181,7 +183,7 @@ export function Contact() {
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="you@domain.example"
                         required
-                        className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] transition-colors focus:border-[#121A2C] focus:outline-none"
+                        className="w-full rounded-md border border-[#E4E4E7] dark:border-white/15 bg-white dark:bg-[#090B12] px-3.5 py-2.5 text-sm text-[#121A2C] dark:text-white placeholder-[#A1A1AA] dark:placeholder-[#52525B] transition-colors focus:border-[#121A2C] dark:focus:border-[#62C9C1] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -189,7 +191,7 @@ export function Contact() {
                   <div>
                     <label
                       htmlFor="contact-topic"
-                      className="mb-1.5 block text-xs font-medium text-[#3F3F46]"
+                      className="mb-1.5 block text-xs font-medium text-[#3F3F46] dark:text-[#D4D4D8]"
                     >
                       Inquiry Topic
                     </label>
@@ -197,7 +199,7 @@ export function Contact() {
                       id="contact-topic"
                       value={topic}
                       onChange={(e) => setTopic(e.target.value)}
-                      className="w-full rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] transition-colors focus:border-[#121A2C] focus:outline-none"
+                      className="w-full rounded-md border border-[#E4E4E7] dark:border-white/15 bg-white dark:bg-[#090B12] px-3.5 py-2.5 text-sm text-[#121A2C] dark:text-white transition-colors focus:border-[#121A2C] dark:focus:border-[#62C9C1] focus:outline-none"
                     >
                       <option value="Proposal & Track Inquiry">
                         Proposal & Track Inquiry
@@ -217,7 +219,7 @@ export function Contact() {
                   <div>
                     <label
                       htmlFor="contact-message"
-                      className="mb-1.5 block text-xs font-medium text-[#3F3F46]"
+                      className="mb-1.5 block text-xs font-medium text-[#3F3F46] dark:text-[#D4D4D8]"
                     >
                       Message
                     </label>
@@ -228,14 +230,14 @@ export function Contact() {
                       onChange={(e) => setMessage(e.target.value)}
                       placeholder="Share your question or partnership details..."
                       required
-                      className="w-full resize-y rounded-md border border-[#E4E4E7] bg-white px-3.5 py-2.5 text-sm text-[#121A2C] placeholder-[#A1A1AA] transition-colors focus:border-[#121A2C] focus:outline-none"
+                      className="w-full resize-y rounded-md border border-[#E4E4E7] dark:border-white/15 bg-white dark:bg-[#090B12] px-3.5 py-2.5 text-sm text-[#121A2C] dark:text-white placeholder-[#A1A1AA] dark:placeholder-[#52525B] transition-colors focus:border-[#121A2C] dark:focus:border-[#62C9C1] focus:outline-none"
                     />
                   </div>
 
                   {error && (
                     <p
                       role="alert"
-                      className="text-xs font-medium text-[#B91C1C]"
+                      className="text-xs font-medium text-[#B91C1C] dark:text-[#F87171]"
                     >
                       {error}
                     </p>
@@ -247,21 +249,24 @@ export function Contact() {
                         href={eventData.externalQueryFormUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-xs font-medium text-[#0D9488] underline underline-offset-4 hover:text-[#121A2C]"
+                        className="text-xs font-medium text-[#0D9488] dark:text-[#62C9C1] underline underline-offset-4 hover:text-[#121A2C] dark:hover:text-white"
                       >
                         Open external query form
                       </a>
                     ) : (
-                      <span className="text-xs text-[#71717A]">
+                      <span className="text-xs text-[#71717A] dark:text-[#A1A1AA]">
                         Validated interactive helpdesk preview
                       </span>
                     )}
 
                     <button
                       type="submit"
-                      className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#121A2C] px-6 py-2.5 text-sm font-semibold text-white transition-colors duration-150 hover:bg-[#1E293B] whitespace-nowrap"
+                      className="inline-flex cursor-pointer items-center gap-2 rounded-md bg-[#121A2C] dark:bg-white px-6 py-2.5 text-sm font-semibold text-white dark:text-[#090B12] transition-colors duration-150 hover:bg-[#1E293B] dark:hover:bg-[#E4E4E7] whitespace-nowrap"
                     >
-                      <Send className="h-4 w-4 text-[#62C9C1]" aria-hidden="true" />
+                      <Send
+                        className="h-4 w-4 text-[#62C9C1] dark:text-[#0D9488]"
+                        aria-hidden="true"
+                      />
                       <span>Submit Query</span>
                     </button>
                   </div>
